@@ -37,7 +37,26 @@ public class Main {
         }
         System.out.println();
 
+
+//        haal reiziger op met specifiek id
+        System.out.println("[Test] ReizigerDAO.findById() geeft de volgende reiziger:");
+        Reiziger reiziger = (Reiziger) rdao.findById(1);
+        System.out.println(reiziger);
+        System.out.println();
+
+//      haal reizigers op met specifieke geboortedatum
+        System.out.println("[Test] ReizigerDAO.findByGbdatum() geeft de volgende reiziger:");
+        List<Reiziger> reizigers1 = rdao.findByGbdatum("1981-03-14");
+
+        for (Reiziger r : reizigers1) {
+            System.out.println(r);
+        }
+        System.out.println();
+
+
+
         // Maak een nieuwe reiziger aan en persisteer deze in de database
+        System.out.println("[Test] ReizigerDAO.save() geeft de volgende uitkomst:");
         String gbdatum = "1981-03-14";
         Reiziger sietske = new Reiziger(77, "S", "", "Boers", java.sql.Date.valueOf(gbdatum));
         System.out.print("[Test] Eerst " + reizigers.size() + " reizigers, na ReizigerDAO.save() ");
@@ -45,6 +64,17 @@ public class Main {
         reizigers = rdao.findAll();
         System.out.println(reizigers.size() + " reizigers\n");
 
-        // Voeg aanvullende tests van de ontbrekende CRUD-operaties in.
+
+//        verwijder sietske met specifiek id
+        System.out.println("[Test] ReizigerDAO.delete() geeft de volgende uitkomst:");
+        System.out.print("[Test] Eerst " + reizigers.size() + " reizigers, na ReizigerDAO.delete() ");
+//        rdao.delete(sietske);
+        reizigers = rdao.findAll();
+        System.out.println(reizigers.size() + " reizigers\n");
+
+
+//        sietske updaten
+        Reiziger test = new Reiziger(77, "test", "", "test", java.sql.Date.valueOf(gbdatum));
+        rdao.update(test);
     }
 }

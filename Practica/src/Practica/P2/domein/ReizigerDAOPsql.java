@@ -15,66 +15,125 @@ public class ReizigerDAOPsql implements ReizigerDAO{
     }
 
     public boolean save(Reiziger reiziger) throws SQLException {
-        String query = "INSERT INTO reiziger (reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum VALUES ('" + reiziger.id + "' , '" + reiziger.voorletters + "', '" + reiziger.tussenvoegsel + "', '" + reiziger.achternaam + "', TO_DATE('17-09-2002', 'dd-mm-yyyy'))";
-        Statement statement = conn.createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
-        return true;
+        try {
+            String q = "INSERT INTO reiziger (reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum) VALUES (?, ?, ?, ?, ?)";
+
+            PreparedStatement pst = conn.prepareStatement(q);
+            pst.setInt(1, reiziger.id);
+            pst.setString(2, reiziger.voorletters);
+            pst.setString(3, reiziger.tussenvoegsel);
+            pst.setString(4, reiziger.achternaam);
+            pst.setDate(5, reiziger.geboortedatum);
+            pst.execute();
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean update(Reiziger reiziger) {
-        return true;
+
+
+        try {
+            String q = "UPDATE reiziger \n" +
+                    "        SET voorletters=?, tussenvoegsel=?, achternaam=?, geboortedatum=? \n" +
+                    "        WHERE reiziger_id= ?";
+
+            PreparedStatement preparedStatement = conn.prepareStatement(q);
+            preparedStatement.setString(1, reiziger.voorletters);
+            preparedStatement.setString(2, reiziger.tussenvoegsel);
+            preparedStatement.setString(3, reiziger.achternaam);
+            preparedStatement.setDate(4, reiziger.geboortedatum);
+            preparedStatement.setInt(5, reiziger.id);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean delete(Reiziger reiziger) {
-        return true;
+        try {
+            String q = "DELETE FROM reiziger WHERE reiziger_id=?";
+            PreparedStatement preparedStatement = conn.prepareStatement(q);
+            preparedStatement.setInt(1, reiziger.id);
+            preparedStatement.execute();
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public Reiziger findById(int id) throws SQLException {
-//        String q = "SELECT * FROM user WHERE uname='" + u + "' AND password='" + p + "';";
-        String query = "SELECT * FROM reiziger WHERE id='" + id + "';";
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery(query);
-        int nummer = rs.getInt(1);
-        String voorletter = rs.getString(2);
-        String tussenvoegsel = rs.getString(3);
-        String achternaam = rs.getString(4);
-        Date geboorteDatum = rs.getDate(5);
-        Reiziger newReiziger = new Reiziger(nummer, voorletter, tussenvoegsel, achternaam, geboorteDatum);
 
-        return newReiziger;
+        try {
+            String query = "SELECT * FROM reiziger WHERE reiziger_id=" + id;
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                String nummer = rs.getString(1);
+                String voorletter = rs.getString(2);
+                String tussenvoegsel = rs.getString(3);
+                String achternaam = rs.getString(4);
+                Date geboorteDatum = rs.getDate(5);
+                Reiziger newReiziger = new Reiziger(Integer.parseInt(nummer), voorletter, tussenvoegsel, achternaam, geboorteDatum);
+                return newReiziger;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<Reiziger> findByGbdatum(String datum) throws SQLException {
         List<Reiziger> reizigers = new ArrayList<>();
-        String query = "SELECT * FROM reiziger WHERE geboortedatum='" + datum + "';";
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery(query);
 
-        while (rs.next()) {
-            int nummer = rs.getInt(1);
-            String voorletter = rs.getString(2);
-            String tussenvoegsel = rs.getString(3);
-            String achternaam = rs.getString(4);
-            Date geboorteDatum = rs.getDate(5);
-            Reiziger newReiziger = new Reiziger(nummer, voorletter, tussenvoegsel, achternaam, geboorteDatum);
-            reizigers.add(newReiziger);
+        try {
+            String query = "SELECT * FROM reiziger WHERE geboortedatum='" + datum + "';";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                int nummer = rs.getInt(1);
+                String voorletter = rs.getString(2);
+                String tussenvoegsel = rs.getString(3);
+                String achternaam = rs.getString(4);
+                Date geboorteDatum = rs.getDate(5);
+                Reiziger newReiziger = new Reiziger(nummer, voorletter, tussenvoegsel, achternaam, geboorteDatum);
+                reizigers.add(newReiziger);
+            }
         }
-
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         return reizigers;
     }
 
     public List<Reiziger> findAll() throws SQLException {
         List<Reiziger> reizigers = new ArrayList<>();
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM reiziger");
-        while (rs.next()) {
-            int nummer = rs.getInt(1);
-            String voorletter = rs.getString(2);
-            String tussenvoegsel = rs.getString(3);
-            String achternaam = rs.getString(4);
-            Date geboorteDatum = rs.getDate(5);
-            Reiziger newReiziger = new Reiziger(nummer, voorletter, tussenvoegsel, achternaam, geboorteDatum);
-            reizigers.add(newReiziger);
+
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM reiziger");
+            while (rs.next()) {
+                int nummer = rs.getInt(1);
+                String voorletter = rs.getString(2);
+                String tussenvoegsel = rs.getString(3);
+                String achternaam = rs.getString(4);
+                Date geboorteDatum = rs.getDate(5);
+                Reiziger newReiziger = new Reiziger(nummer, voorletter, tussenvoegsel, achternaam, geboorteDatum);
+                reizigers.add(newReiziger);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
         return reizigers;
     }
