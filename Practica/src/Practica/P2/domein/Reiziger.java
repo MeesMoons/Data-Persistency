@@ -10,7 +10,13 @@ public class Reiziger {
     public String achternaam;
     public Date geboortedatum;
 
-    public Reiziger() {}
+    public Reiziger(int id, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum) {
+        this.id = id;
+        this.voorletters = voorletters;
+        this.tussenvoegsel = tussenvoegsel;
+        this.achternaam = achternaam;
+        this.geboortedatum = geboortedatum;
+    }
 
     public int getId() {
         return id;
@@ -25,7 +31,7 @@ public class Reiziger {
     }
 
     public String toString() {
-        String string = "";
+        String string = id + " " + voorletters + "." + achternaam + " " + geboortedatum;
         return string;
     }
 }
