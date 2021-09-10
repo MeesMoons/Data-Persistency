@@ -15,5 +15,4 @@ public interface AdresDAO {
     public Adres findByReiziger(Reiziger reiziger);
 
     public List<Adres> findAll();
-
 }

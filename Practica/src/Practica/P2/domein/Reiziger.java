@@ -1,6 +1,8 @@
 package Practica.P2.domein;
 
 //import java.util.Date;
+import Practica.P3.domein.Adres;
+
 import java.sql.Date;
 
 public class Reiziger {
@@ -9,6 +11,7 @@ public class Reiziger {
     public String tussenvoegsel;
     public String achternaam;
     public Date geboortedatum;
+    public Adres adres;
 
     public Reiziger(int id, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum) {
         this.id = id;
