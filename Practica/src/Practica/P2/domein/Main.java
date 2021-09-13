@@ -68,7 +68,7 @@ public class Main {
 //        verwijder sietske met specifiek id
         System.out.println("[Test] ReizigerDAO.delete() geeft de volgende uitkomst:");
         System.out.print("[Test] Eerst " + reizigers.size() + " reizigers, na ReizigerDAO.delete() ");
-//        rdao.delete(sietske);
+        rdao.delete(sietske);
         reizigers = rdao.findAll();
         System.out.println(reizigers.size() + " reizigers\n");
 
