@@ -1,7 +1,7 @@
-package Practica.P2.domein;
+package ovchip.reiziger;
 
 //import java.util.Date;
-import Practica.P3.domein.Adres;
+import ovchip.adres.Adres;
 
 import java.sql.Date;
 

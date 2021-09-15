@@ -1,9 +1,8 @@
-package Practica.P3.domein;
+package ovchip.adres;
 
-import Practica.P2.domein.Reiziger;
-import Practica.P2.domein.ReizigerDAO;
+import ovchip.reiziger.Reiziger;
+import ovchip.reiziger.ReizigerDAO;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

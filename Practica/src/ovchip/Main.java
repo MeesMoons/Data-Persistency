@@ -1,7 +1,9 @@
-package Practica.P3.domein;
+package ovchip;
 
-import Practica.P2.domein.ReizigerDAO;
-import Practica.P2.domein.ReizigerDAOPsql;
+
+import ovchip.adres.Adres;
+import ovchip.adres.AdresDAO;
+import ovchip.adres.AdresDAOPsql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

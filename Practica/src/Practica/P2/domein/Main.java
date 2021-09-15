@@ -1,5 +1,9 @@
 package Practica.P2.domein;
 
+import ovchip.reiziger.Reiziger;
+import ovchip.reiziger.ReizigerDAO;
+import ovchip.reiziger.ReizigerDAOPsql;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

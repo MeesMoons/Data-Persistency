@@ -1,6 +1,6 @@
-package Practica.P3.domein;
+package ovchip.adres;
 
-import Practica.P2.domein.Reiziger;
+import ovchip.reiziger.Reiziger;
 
 import java.util.List;
 

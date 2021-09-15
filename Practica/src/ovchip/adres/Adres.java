@@ -1,4 +1,4 @@
-package Practica.P3.domein;
+package ovchip.adres;
 
 public class Adres {
     public int adres_id;

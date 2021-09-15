@@ -1,4 +1,4 @@
-package Practica.P2.domein;
+package ovchip.reiziger;
 
 import java.sql.SQLException;
 import java.util.List;

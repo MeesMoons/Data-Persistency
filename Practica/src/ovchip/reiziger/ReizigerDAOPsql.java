@@ -1,6 +1,5 @@
-package Practica.P2.domein;
+package ovchip.reiziger;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
