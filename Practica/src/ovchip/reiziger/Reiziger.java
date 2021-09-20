@@ -2,6 +2,7 @@ package ovchip.reiziger;
 
 //import java.util.Date;
 import ovchip.adres.Adres;
+import ovchip.ovchipkaart.OVChipkaart;
 
 import java.sql.Date;
 
@@ -12,6 +13,7 @@ public class Reiziger {
     public String achternaam;
     public Date geboortedatum;
     public Adres adres;
+    public OVChipkaart ovChipkaart;
 
     public Reiziger(int id, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum) {
         this.id = id;
