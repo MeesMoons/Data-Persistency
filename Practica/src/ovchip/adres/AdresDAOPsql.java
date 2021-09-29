@@ -3,10 +3,7 @@ package ovchip.adres;
 import ovchip.reiziger.Reiziger;
 import ovchip.reiziger.ReizigerDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,16 +15,30 @@ public class AdresDAOPsql implements AdresDAO {
         this.connection = connection;
     }
 
+    public int findId(Adres adres) throws SQLException {
+        String query = "select adres_id from adres where postcode='" + adres.postcode + "'and huisnummer='" + adres.huisnummer + "' and straat= '" + adres.straat + "' and woonplaats='" + adres.woonplaats + "'";
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            return id;
+        }
+        return 0;
+    }
+
     public boolean save(Adres adres) {
         try {
-            String query = "INSERT INTO adres (adres_id, postcode, huisnummer, straat, woonplaats, reiziger_id) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, adres.adres_id);
-            preparedStatement.setString(2, adres.postcode);
-            preparedStatement.setString(3, adres.huisnummer);
-            preparedStatement.setString(4, adres.straat);
-            preparedStatement.setString(5, adres.woonplaats);
-            preparedStatement.setInt(6, adres.reiziger_id);
+            String query = "INSERT INTO adres (postcode, huisnummer, straat, woonplaats, reiziger_id) VALUES (?, ?, ?, ?, ?)";
+            String q = "insert into adres values (nextval('adres_ids'), ?, ?, ?, ?, ?)";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(q);
+//            preparedStatement.setInt(1, adres.adres_id);
+            preparedStatement.setString(1, adres.postcode);
+            preparedStatement.setString(2, adres.huisnummer);
+            preparedStatement.setString(3, adres.straat);
+            preparedStatement.setString(4, adres.woonplaats);
+            preparedStatement.setInt(5, adres.reiziger_id);
             preparedStatement.execute();
             return true;
         }
@@ -86,7 +97,7 @@ public class AdresDAOPsql implements AdresDAO {
                 String straat = resultSet.getString(4);
                 String woonplaats = resultSet.getString(5);
                 int reiziger_id = resultSet.getInt(6);
-                Adres nieuwAdres = new Adres(adres_id, postcode, huisnummer, straat, woonplaats, reiziger_id);
+                Adres nieuwAdres = new Adres(postcode, huisnummer, straat, woonplaats, reiziger_id);
                 return nieuwAdres;
             }
             return null;
@@ -110,7 +121,7 @@ public class AdresDAOPsql implements AdresDAO {
                 String straat = resultSet.getString(4);
                 String woonplaats = resultSet.getString(5);
                 int reiziger_id = resultSet.getInt(6);
-                Adres nieuwAdres = new Adres(adres_id, postcode, huisnummer, straat, woonplaats, reiziger_id);
+                Adres nieuwAdres = new Adres(postcode, huisnummer, straat, woonplaats, reiziger_id);
                 adresList.add(nieuwAdres);
             }
         }

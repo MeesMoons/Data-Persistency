@@ -13,16 +13,31 @@ public class ReizigerDAOPsql implements ReizigerDAO{
         this.conn = DriverManager.getConnection(url);
     }
 
+    public int findId(Reiziger reiziger) throws SQLException {
+        String query = "select reiziger_id from reiziger where voorletters='" + reiziger.voorletters + "' and achternaam= '" + reiziger.achternaam + "' and geboortedatum='" + reiziger.geboortedatum + "'";
+
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            return id;
+        }
+        return 0;
+    }
+
     public boolean save(Reiziger reiziger) throws SQLException {
         try {
-            String q = "INSERT INTO reiziger (reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum) VALUES (?, ?, ?, ?, ?)";
 
-            PreparedStatement pst = conn.prepareStatement(q);
-            pst.setInt(1, reiziger.id);
-            pst.setString(2, reiziger.voorletters);
-            pst.setString(3, reiziger.tussenvoegsel);
-            pst.setString(4, reiziger.achternaam);
-            pst.setDate(5, reiziger.geboortedatum);
+//            String q = "INSERT INTO reiziger (reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum) VALUES (?, ?, ?, ?, ?) ";
+            String query = "insert into reiziger values (nextval('reiziger_ids'), ?, ?, ?, ?)";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+//            pst.setInt(1, reiziger.id);
+            pst.setString(1, reiziger.voorletters);
+            pst.setString(2, reiziger.tussenvoegsel);
+            pst.setString(3, reiziger.achternaam);
+            pst.setDate(4, reiziger.geboortedatum);
             pst.execute();
             return true;
         }
@@ -81,7 +96,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                 String tussenvoegsel = rs.getString(3);
                 String achternaam = rs.getString(4);
                 Date geboorteDatum = rs.getDate(5);
-                Reiziger newReiziger = new Reiziger(Integer.parseInt(nummer), voorletter, tussenvoegsel, achternaam, geboorteDatum);
+                Reiziger newReiziger = new Reiziger(voorletter, tussenvoegsel, achternaam, geboorteDatum);
                 return newReiziger;
             }
         }
@@ -105,7 +120,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                 String tussenvoegsel = rs.getString(3);
                 String achternaam = rs.getString(4);
                 Date geboorteDatum = rs.getDate(5);
-                Reiziger newReiziger = new Reiziger(nummer, voorletter, tussenvoegsel, achternaam, geboorteDatum);
+                Reiziger newReiziger = new Reiziger(voorletter, tussenvoegsel, achternaam, geboorteDatum);
                 reizigers.add(newReiziger);
             }
         }
@@ -127,8 +142,8 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                 String tussenvoegsel = rs.getString(3);
                 String achternaam = rs.getString(4);
                 Date geboorteDatum = rs.getDate(5);
-                Reiziger newReiziger = new Reiziger(nummer, voorletter, tussenvoegsel, achternaam, geboorteDatum);
-                reizigers.add(newReiziger);
+//                Reiziger newReiziger = new Reiziger(nummer, voorletter, tussenvoegsel, achternaam, geboorteDatum);
+//                reizigers.add(newReiziger);
             }
         }
         catch (Exception e) {

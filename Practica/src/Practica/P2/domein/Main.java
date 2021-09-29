@@ -62,7 +62,7 @@ public class Main {
         // Maak een nieuwe reiziger aan en persisteer deze in de database
         System.out.println("[Test] ReizigerDAO.save() geeft de volgende uitkomst:");
         String gbdatum = "1981-03-14";
-        Reiziger sietske = new Reiziger(77, "S", "", "Boers", java.sql.Date.valueOf(gbdatum));
+        Reiziger sietske = new Reiziger("S", "", "Boers", java.sql.Date.valueOf(gbdatum));
         System.out.print("[Test] Eerst " + reizigers.size() + " reizigers, na ReizigerDAO.save() ");
         rdao.save(sietske);
         reizigers = rdao.findAll();
@@ -78,7 +78,7 @@ public class Main {
 
 
 //        sietske updaten
-        Reiziger test = new Reiziger(77, "test", "", "test", java.sql.Date.valueOf(gbdatum));
+        Reiziger test = new Reiziger("test", "", "test", java.sql.Date.valueOf(gbdatum));
         rdao.update(test);
     }
 }

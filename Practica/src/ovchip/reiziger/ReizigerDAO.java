@@ -5,6 +5,8 @@ import java.util.List;
 
 public interface ReizigerDAO {
 
+    public int findId(Reiziger reiziger) throws SQLException;
+
     public boolean save(Reiziger reiziger) throws SQLException;
 
     public boolean update(Reiziger reiziger);
