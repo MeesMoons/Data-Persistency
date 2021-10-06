@@ -76,9 +76,8 @@ public class Main {
         reizigers = rdao.findAll();
         System.out.println(reizigers.size() + " reizigers\n");
 
-
 //        sietske updaten
         Reiziger test = new Reiziger("test", "", "test", java.sql.Date.valueOf(gbdatum));
-        rdao.update(test);
+//        rdao.update(test);
     }
 }

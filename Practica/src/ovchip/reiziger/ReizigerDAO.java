@@ -9,7 +9,7 @@ public interface ReizigerDAO {
 
     public boolean save(Reiziger reiziger) throws SQLException;
 
-    public boolean update(Reiziger reiziger);
+    public boolean update(Reiziger reiziger, int id);
 
     public boolean delete(Reiziger reiziger);
 

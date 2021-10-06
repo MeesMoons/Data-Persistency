@@ -11,11 +11,11 @@ public interface AdresDAO {
 
     public boolean save(Adres adres);
 
-    public boolean update(Adres adres);
+    public boolean update(Adres adres, int id);
 
     public boolean delete(Adres adres);
 
-    public Adres findByReiziger(Reiziger reiziger);
+    public Adres findByReiziger(int id);
 
     public List<Adres> findAll();
 }
