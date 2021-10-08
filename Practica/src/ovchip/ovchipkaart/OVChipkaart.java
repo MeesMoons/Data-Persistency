@@ -1,8 +1,11 @@
 package ovchip.ovchipkaart;
 
+import ovchip.product.Product;
 import ovchip.reiziger.Reiziger;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OVChipkaart {
     public int kaart_nummer;
@@ -10,6 +13,7 @@ public class OVChipkaart {
     public int klasse;
     public double saldo;
     public int reiziger_id;
+    public List<Product> products;
 
     public OVChipkaart(int kaart_nummer, Date geldig_tot, int klasse, double saldo, int reiziger_id) {
         this.kaart_nummer = kaart_nummer;
@@ -17,6 +21,7 @@ public class OVChipkaart {
         this.klasse = klasse;
         this.saldo = saldo;
         this.reiziger_id = reiziger_id;
+        this.products = new ArrayList<>();
     }
 
     public OVChipkaart(Date geldig_tot, int klasse, double saldo) {

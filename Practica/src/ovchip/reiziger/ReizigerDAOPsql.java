@@ -1,6 +1,7 @@
 package ovchip.reiziger;
 
 import ovchip.ovchipkaart.OVChipkaart;
+import ovchip.product.ProductDAO;
 
 import java.sql.*;
 import java.util.ArrayList;

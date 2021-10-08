@@ -7,6 +7,9 @@ import ovchip.adres.AdresDAOPsql;
 import ovchip.ovchipkaart.OVChipkaart;
 import ovchip.ovchipkaart.OVChipkaartDAO;
 import ovchip.ovchipkaart.OVChipkaartDAOsql;
+import ovchip.product.Product;
+import ovchip.product.ProductDAO;
+import ovchip.product.ProductDAOPsql;
 import ovchip.reiziger.Reiziger;
 import ovchip.reiziger.ReizigerDAO;
 import ovchip.reiziger.ReizigerDAOPsql;
@@ -18,54 +21,20 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class Main {
-
     public Connection connection;
-
 
     public static void main(String[] args) throws SQLException {
         String url = "jdbc:postgresql://localhost/ovchip?user=postgres&password=Appelcake10";
         Connection conn = DriverManager.getConnection(url);
-
-
         ReizigerDAO reizigerDAO = new ReizigerDAOPsql(conn);
         AdresDAO adresDAO = new AdresDAOPsql(conn);
         OVChipkaartDAO ovChipkaartDAO = new OVChipkaartDAOsql(conn);
-//        testAdresDAO(adresDAO);
-//        testReizigerDAO(reizigerDAO);
-        testReizigerAdresRelatie(reizigerDAO, adresDAO, ovChipkaartDAO);
+        ProductDAO productDAO = new ProductDAOPsql(conn);
+        testReizigerAdresRelatie(reizigerDAO, adresDAO, ovChipkaartDAO, productDAO);
     }
 
-    private static void testAdresDAO(AdresDAO adresDAO) {
-//        List<Adres> adresList = adresDAO.findAll();
-//        System.out.println("test find all");
-//        for (Adres a : adresList) {
-//            System.out.println(a);
-//        }
-//        System.out.println();
-//
-//        List<Adres> adresList1 = adresDAO.findAll();
-//        System.out.println("test .save adres");
-//        Adres newAdres = new Adres("2806EJ", "28", "krugerlaan", "gouda");
-//        System.out.print("[Test] Eerst " + adresList1.size() + " adressen, na adresDAO.save() ");
-//        adresDAO.save(newAdres);
-//        List<Adres> adressen = adresDAO.findAll();
-//        System.out.println(adressen.size() + " adressen\n");
-//
-//        System.out.println("test delete adres");
-//        List<Adres> adressen1 = adresDAO.findAll();
-//
-//        System.out.print("[Test] Eerst " + adressen1.size() + " adressen, na adresDAO.delete() ");
-//        adresDAO.delete(newAdres);
-//        List<Adres> adressen11 = adresDAO.findAll();
-//        System.out.println(adressen11.size() + " adressen\n");
-//
-//        System.out.println("test .update adres");
-//        Adres nieuwAdres = new Adres(1, "2806EJ", "28", "krugerlaan", "gouda", 1);
-//        adresDAO.update(nieuwAdres);
-    }
 
-    private static void testReizigerAdresRelatie(ReizigerDAO reizigerDAO, AdresDAO adresDAO,OVChipkaartDAO ovChipkaartDAO) throws SQLException {
-
+    private static void testReizigerAdresRelatie(ReizigerDAO reizigerDAO, AdresDAO adresDAO,OVChipkaartDAO ovChipkaartDAO, ProductDAO productDAO) throws SQLException {
 //        adresDAO.findAll()        [TEST]
         System.out.println();
         List<Adres> adresList = adresDAO.findAll();
@@ -161,5 +130,18 @@ public class Main {
             System.out.println(ovChipkaart);
         }
         reizigerDAO.delete(reizigerOvchipkaart);
+
+
+//        test productDAO.save(), .delete() en update()         [TEST]
+        Product product = new Product("mees", "dit is een test product", 25.50);
+        productDAO.save(product);
+        System.out.println();
+        System.out.println("[TEST] geef het opgeslagen product, update hem en verwijder hem: ");
+        System.out.println(productDAO.findById(productDAO.findId(product)));
+        Product updateProduct = new Product("updated", "dit is een test product", 25.50);
+        productDAO.update(updateProduct, productDAO.findId(product));
+        System.out.println(productDAO.findById(productDAO.findId(updateProduct)));
+        productDAO.delete(product);
+
     }
 }
