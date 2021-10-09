@@ -19,6 +19,14 @@ public class Product {
         this.ovChipkaartList = new ArrayList<>();
     }
 
+    public void addOVchipkaart(OVChipkaart ovChipkaart) {
+        ovChipkaartList.add(ovChipkaart);
+    }
+
+    public void removeOVchipkaart(OVChipkaart ovChipkaart) {
+        ovChipkaartList.remove(ovChipkaart);
+    }
+
     public String toString() {
         return naam + ", " + beschrijving + ", " + prijs;
     }

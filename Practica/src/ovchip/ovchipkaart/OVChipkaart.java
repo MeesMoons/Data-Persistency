@@ -30,6 +30,14 @@ public class OVChipkaart {
         this.saldo = saldo;
     }
 
+    public void addProduct(Product product) {
+        products.add(product);
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
+    }
+
     public String toString() {
         String s = "";
         s += kaart_nummer + " " + geldig_tot + " " + klasse + " " + saldo + " " + reiziger_id;
