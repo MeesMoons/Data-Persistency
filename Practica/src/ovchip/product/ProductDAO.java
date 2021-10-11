@@ -1,6 +1,9 @@
 package ovchip.product;
 
+import ovchip.ovchipkaart.OVChipkaart;
+
 import java.sql.SQLException;
+import java.util.List;
 
 public interface ProductDAO {
 
@@ -13,4 +16,8 @@ public interface ProductDAO {
     public boolean delete(Product product) throws SQLException;
 
     public Product findById(int id) throws SQLException;
+
+    public List<Product> findAll() throws SQLException;
+
+    public List<Product> findByOVChipkaart(OVChipkaart) throws SQLException;
 }

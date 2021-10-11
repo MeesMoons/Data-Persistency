@@ -3,6 +3,8 @@ package ovchip.product;
 import ovchip.ovchipkaart.OVChipkaart;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDAOPsql implements ProductDAO {
     public Connection connection;
@@ -106,5 +108,26 @@ public class ProductDAOPsql implements ProductDAO {
             return null;
         }
         return null;
+    }
+
+    public List<Product> findByOVChipkaart(OVChipkaart ovChipkaart) {
+        List<Product> products = new ArrayList<>();
+        
+    }
+
+    public List<Product> findAll() throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String findAllQuery = "select * from product";
+        PreparedStatement preparedStatement = connection.prepareStatement(findAllQuery);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            int product_nummer = resultSet.getInt(1);
+            String naam = resultSet.getString(2);
+            String beschrijving = resultSet.getString(3);
+            double prijs = resultSet.getDouble(4);
+            Product product = new Product(naam, beschrijving, prijs);
+            products.add(product);
+        }
+        return products;
     }
 }

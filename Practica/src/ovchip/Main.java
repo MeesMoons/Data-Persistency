@@ -166,5 +166,12 @@ public class Main {
         productDAO.save(product1);
         productDAO.delete(product1);
         reizigerDAO.delete(reiziger1);
+
+        //        test findAll() van productDAOsql
+        System.out.println();
+        System.out.println("[TEST] .findAll voor producten: ");
+        for (Product product2 :  productDAO.findAll()) {
+            System.out.println(product2);
+        }
     }
 }
