@@ -141,7 +141,28 @@ public class Main {
         Product updateProduct = new Product("updated", "dit is een test product", 25.50);
         productDAO.update(updateProduct, productDAO.findId(product));
         System.out.println(productDAO.findById(productDAO.findId(updateProduct)));
-        productDAO.delete(product);
+        productDAO.delete(updateProduct);
 
+//        for (int i=0; i<=4; i++) {
+//            OVChipkaart ovChipkaart = new OVChipkaart(Date.valueOf("2032-12-29"), 1, 25.30, 5);
+//            product.ovChipkaartList.add(ovChipkaart);
+//        }
+//        for (OVChipkaart ovChipkaart : product.ovChipkaartList) {
+//            System.out.println(ovChipkaart);
+//        }
+
+
+        Reiziger reiziger1 = new Reiziger("R", null, "Ossenwaarde", Date.valueOf("1974-11-11"));
+        Product product1 = new Product("mees", "dit is een test product", 25.50);
+        reizigerDAO.save(reiziger1);
+        OVChipkaart ovChipkaart = new OVChipkaart(Date.valueOf("2032-12-29"), 1, 25.30);
+        reiziger1.ovChipkaartList.add(ovChipkaart);
+        reizigerDAO.update(reiziger1, reizigerDAO.findId(reiziger1));
+
+        for (OVChipkaart ovChipkaart1 : reiziger1.ovChipkaartList) {
+            ovChipkaart1.setKaart_nummer(ovChipkaartDAO.findId(ovChipkaart));
+            product1.ovChipkaartList.add(ovChipkaart);
+        }
+        productDAO.save(product1);
     }
 }

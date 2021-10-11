@@ -1,5 +1,7 @@
 package ovchip.product;
 
+import ovchip.ovchipkaart.OVChipkaart;
+
 import java.sql.*;
 
 public class ProductDAOPsql implements ProductDAO {
@@ -18,6 +20,16 @@ public class ProductDAOPsql implements ProductDAO {
             preparedStatement.setString(2, product.beschrijving);
             preparedStatement.setDouble(3, product.prijs);
             preparedStatement.execute();
+            for (OVChipkaart ovChipkaart : product.ovChipkaartList) {
+                System.out.println(ovChipkaart);
+                String saveRelatieQuery = "INSERT INTO ov_chipkaart_product(kaart_nummer, product_nummer, status, last_update) VALUES (?, ?, ?, ?)";
+                PreparedStatement preparedStatement1 = connection.prepareStatement(saveRelatieQuery);
+                preparedStatement1.setInt(1, ovChipkaart.kaart_nummer);
+                preparedStatement1.setInt(2, findId(product));
+                preparedStatement1.setString(3, null);
+                preparedStatement1.setDate(4, null);
+                preparedStatement1.execute();
+            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -31,6 +43,10 @@ public class ProductDAOPsql implements ProductDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
             preparedStatement.setInt(1, findId(product));
             preparedStatement.execute();
+            String deleteRelatieQuery = "delete from ov_chipkaart_product where product_nummer = ?";
+            PreparedStatement preparedStatement1 = connection.prepareStatement(deleteRelatieQuery);
+            preparedStatement1.setInt(1, findId(product));
+            preparedStatement1.execute();
             return true;
         } catch (Exception e) {
             e.printStackTrace();

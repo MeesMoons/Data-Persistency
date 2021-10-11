@@ -1,5 +1,6 @@
 package ovchip.ovchipkaart;
 
+import ovchip.product.Product;
 import ovchip.reiziger.Reiziger;
 
 import java.sql.*;
@@ -33,5 +34,25 @@ public class OVChipkaartDAOsql implements OVChipkaartDAO {
             e.printStackTrace();
         }
         return ovChipkaarten;
+    }
+
+
+    public int findId(OVChipkaart ovChipkaart) {
+        int kaart_nummer = 0;
+        try {
+            String findIdQuery = "select kaart_nummer from ov_chipkaart where geldig_tot=? and klasse=? and saldo=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(findIdQuery);
+            preparedStatement.setDate(1, ovChipkaart.geldig_tot);
+            preparedStatement.setInt(2, ovChipkaart.klasse);
+            preparedStatement.setDouble(3, ovChipkaart.saldo);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                kaart_nummer =+ resultSet.getInt(1);
+            }
+            return kaart_nummer;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return kaart_nummer;
+        }
     }
 }

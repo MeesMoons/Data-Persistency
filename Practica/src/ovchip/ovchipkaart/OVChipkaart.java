@@ -24,6 +24,15 @@ public class OVChipkaart {
         this.products = new ArrayList<>();
     }
 
+    public OVChipkaart(Date geldig_tot, int klasse, double saldo, int reiziger_id) {
+        this.kaart_nummer = kaart_nummer;
+        this.geldig_tot = geldig_tot;
+        this.klasse = klasse;
+        this.saldo = saldo;
+        this.reiziger_id = reiziger_id;
+        this.products = new ArrayList<>();
+    }
+
     public OVChipkaart(Date geldig_tot, int klasse, double saldo) {
         this.geldig_tot = geldig_tot;
         this.klasse = klasse;
@@ -32,6 +41,10 @@ public class OVChipkaart {
 
     public void addProduct(Product product) {
         products.add(product);
+    }
+
+    public void setKaart_nummer(int kaart_nummer) {
+        this.kaart_nummer = kaart_nummer;
     }
 
     public void removeProduct(Product product) {
