@@ -164,5 +164,7 @@ public class Main {
             product1.ovChipkaartList.add(ovChipkaart);
         }
         productDAO.save(product1);
+        productDAO.delete(product1);
+        reizigerDAO.delete(reiziger1);
     }
 }

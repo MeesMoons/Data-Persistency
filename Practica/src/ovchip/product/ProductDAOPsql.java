@@ -21,7 +21,6 @@ public class ProductDAOPsql implements ProductDAO {
             preparedStatement.setDouble(3, product.prijs);
             preparedStatement.execute();
             for (OVChipkaart ovChipkaart : product.ovChipkaartList) {
-                System.out.println(ovChipkaart);
                 String saveRelatieQuery = "INSERT INTO ov_chipkaart_product(kaart_nummer, product_nummer, status, last_update) VALUES (?, ?, ?, ?)";
                 PreparedStatement preparedStatement1 = connection.prepareStatement(saveRelatieQuery);
                 preparedStatement1.setInt(1, ovChipkaart.kaart_nummer);
@@ -39,14 +38,15 @@ public class ProductDAOPsql implements ProductDAO {
 
     public boolean delete(Product product) throws SQLException {
         try {
-            String deleteQuery = "delete from product where product_nummer=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
-            preparedStatement.setInt(1, findId(product));
-            preparedStatement.execute();
             String deleteRelatieQuery = "delete from ov_chipkaart_product where product_nummer = ?";
             PreparedStatement preparedStatement1 = connection.prepareStatement(deleteRelatieQuery);
             preparedStatement1.setInt(1, findId(product));
             preparedStatement1.execute();
+
+            String deleteQuery = "delete from product where product_nummer=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+            preparedStatement.setInt(1, findId(product));
+            preparedStatement.execute();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
