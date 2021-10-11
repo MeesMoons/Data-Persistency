@@ -12,6 +12,14 @@ public class Product {
     public double prijs;
     public List<OVChipkaart> ovChipkaartList;
 
+    public Product(int product_nummer, String naam, String beschrijving, double prijs) {
+        this.product_nummer = product_nummer;
+        this.naam = naam;
+        this.beschrijving = beschrijving;
+        this.prijs = prijs;
+        this.ovChipkaartList = new ArrayList<>();
+    }
+
     public Product(String naam, String beschrijving, double prijs) {
         this.naam = naam;
         this.beschrijving = beschrijving;

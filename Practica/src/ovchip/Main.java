@@ -143,15 +143,8 @@ public class Main {
         System.out.println(productDAO.findById(productDAO.findId(updateProduct)));
         productDAO.delete(updateProduct);
 
-//        for (int i=0; i<=4; i++) {
-//            OVChipkaart ovChipkaart = new OVChipkaart(Date.valueOf("2032-12-29"), 1, 25.30, 5);
-//            product.ovChipkaartList.add(ovChipkaart);
-//        }
-//        for (OVChipkaart ovChipkaart : product.ovChipkaartList) {
-//            System.out.println(ovChipkaart);
-//        }
 
-
+//          Relatie persisteren testen          [TEST]
         Reiziger reiziger1 = new Reiziger("R", null, "Ossenwaarde", Date.valueOf("1974-11-11"));
         Product product1 = new Product("mees", "dit is een test product", 25.50);
         reizigerDAO.save(reiziger1);
@@ -166,6 +159,14 @@ public class Main {
         productDAO.save(product1);
         productDAO.delete(product1);
         reizigerDAO.delete(reiziger1);
+
+        System.out.println();
+        System.out.println("[TEST] .findByOVchipkaart()");
+        Reiziger reiziger2 = new Reiziger("H", null, "Lubben", Date.valueOf("1998-08-11"));
+        List<OVChipkaart> ovChipkaartList = ovChipkaartDAO.findByReiziger(reiziger2, reizigerDAO.findId(reiziger2));
+        for (OVChipkaart ovChipkaart1 : ovChipkaartList) {
+            System.out.println(productDAO.findByOVChipkaart(ovChipkaart1));
+        }
 
         //        test findAll() van productDAOsql
         System.out.println();

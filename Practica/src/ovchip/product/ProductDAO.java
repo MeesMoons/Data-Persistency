@@ -19,5 +19,5 @@ public interface ProductDAO {
 
     public List<Product> findAll() throws SQLException;
 
-    public List<Product> findByOVChipkaart(OVChipkaart) throws SQLException;
+    public List<Product> findByOVChipkaart(OVChipkaart ovChipkaart) throws SQLException;
 }

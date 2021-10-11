@@ -110,23 +110,43 @@ public class ProductDAOPsql implements ProductDAO {
         return null;
     }
 
-    public List<Product> findByOVChipkaart(OVChipkaart ovChipkaart) {
+    public List<Product> findByOVChipkaart(OVChipkaart ovChipkaart) throws SQLException {
         List<Product> products = new ArrayList<>();
-        
+        try {
+            String query = "select * from product where product_nummer = any (select product_nummer from ov_chipkaart_product where kaart_nummer=?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, ovChipkaart.kaart_nummer);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int product_nummer = resultSet.getInt(1);
+                String naam = resultSet.getString(2);
+                String beschrijving = resultSet.getString(3);
+                double prijs = resultSet.getDouble(4);
+                Product product = new Product(naam, beschrijving, prijs);
+                products.add(product);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 
     public List<Product> findAll() throws SQLException {
         List<Product> products = new ArrayList<>();
-        String findAllQuery = "select * from product";
-        PreparedStatement preparedStatement = connection.prepareStatement(findAllQuery);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            int product_nummer = resultSet.getInt(1);
-            String naam = resultSet.getString(2);
-            String beschrijving = resultSet.getString(3);
-            double prijs = resultSet.getDouble(4);
-            Product product = new Product(naam, beschrijving, prijs);
-            products.add(product);
+        try {
+            String findAllQuery = "select * from product";
+            PreparedStatement preparedStatement = connection.prepareStatement(findAllQuery);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int product_nummer = resultSet.getInt(1);
+                String naam = resultSet.getString(2);
+                String beschrijving = resultSet.getString(3);
+                double prijs = resultSet.getDouble(4);
+                Product product = new Product(naam, beschrijving, prijs);
+                products.add(product);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return products;
     }
