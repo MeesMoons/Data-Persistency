@@ -157,9 +157,11 @@ public class Main {
             product1.ovChipkaartList.add(ovChipkaart);
         }
         productDAO.save(product1);
+
         productDAO.delete(product1);
         reizigerDAO.delete(reiziger1);
 
+        //        test findByOVChipkaart() van productDAOsql
         System.out.println();
         System.out.println("[TEST] .findByOVchipkaart()");
         Reiziger reiziger2 = new Reiziger("H", null, "Lubben", Date.valueOf("1998-08-11"));
